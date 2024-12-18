@@ -10,8 +10,6 @@ public class CameraController : MonoBehaviour
     public float sensitivity = 10f;
     public float minYAngle = -20f;
     public float maxYAngle = 60f;
-    private float _currentX = 0f;
-    private float _currentY = 0f;
 
     private Transform _pivot;
 
@@ -20,9 +18,6 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        //        _pivot = target.parent;
     }
 
     internal void SetPivot(Transform tPivot)
@@ -30,19 +25,9 @@ public class CameraController : MonoBehaviour
         _pivot = tPivot;
     }
 
-    void Update()
-    {
-/*        _currentX += Input.GetAxis("Mouse X") * sensitivity;
-        _currentY -= Input.GetAxis("Mouse Y") * -sensitivity;
-
-        _currentY = Mathf.Clamp(_currentY, minYAngle, maxYAngle);/**/
-    }
-
     void LateUpdate()
     {
-        Quaternion rotation = Quaternion.Euler(_currentY, _currentX, 0);
-        transform.position = target.position + rotation * offset;
-        transform.LookAt(target.position + _centerOffset);
-        _pivot.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0f);
+        transform.position = target.position;
+        transform.rotation = target.rotation;
     }
 }
